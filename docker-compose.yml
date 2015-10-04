@@ -4,6 +4,8 @@ web:
     - "3000:3000"
   links:
     - mongo
+  environment:
+    - DOCKER_HOST
 mongo:
   image: mongo:3.1
   ports:

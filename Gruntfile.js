@@ -5,6 +5,7 @@ module.exports = function (grunt) {
       dev: {
         script: 'app.js',
         options: {
+          nodeArgs: ['--harmony'],
           ext: 'js',
           ignore: ['node_modules/**', 'app/assets/**'],
           args: grunt.option.flags()

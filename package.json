@@ -4,7 +4,7 @@
   "private": false,
   "scripts": {
     "start": "node --harmony app.js",
-    "start:dev": "DEBUG=app grunt"
+    "start:dev": "DEBUG=app node --harmony node_modules/grunt-cli/bin/grunt"
   },
   "dependencies": {
     "body-parser": "^1.14.0",

@@ -11,9 +11,15 @@ module.exports = (db) => {
     },
 
     insert: function (data, callback) {
-      db.collection(COLLECTION).insertMany([data], (err, result) => {
-        if (err) callback(err, null);
-        else callback(null, result.ops[0])
+      db.collection(COLLECTION).findOne({_id:data._id}, (err, result) => {
+        if(result) {
+          callback(null, false);
+        } else {
+          db.collection(COLLECTION).insert(data, (err, result) => {
+            if (err) callback(err, null);
+            else callback(null, true);
+          });
+        }
       });
     }
   }
