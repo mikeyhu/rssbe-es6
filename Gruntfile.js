@@ -50,4 +50,6 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['build', 'concurrent:target']);
 
   grunt.registerTask('build', ['mochaTest']);
+
+  grunt.registerTask('test', ['build']);
 };

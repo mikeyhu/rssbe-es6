@@ -18,4 +18,8 @@ router.get('/all', function (req, res) {
   storyStore(req.db).all((data) => res.json(data));
 });
 
+router.get('/latest', function (req, res) {
+  storyStore(req.db).latest((data) => res.json(data));
+});
+
 module.exports = router;
