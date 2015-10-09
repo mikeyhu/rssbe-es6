@@ -13,7 +13,7 @@ debug(configuration);
 var app = express();
 app.use(expressMongoDb(configuration.mongoUri));
 app.use(bodyParser.json());
-app.use(logger('dev'));
+app.use(logger(configuration.httpLogging));
 
 app.use('/stories', storyRoutes);
 app.use(errorRoutes);

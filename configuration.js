@@ -16,7 +16,8 @@ module.exports = function () {
   };
 
   return {
-    mongoUri: getMongoUri()
+    mongoUri: getMongoUri(),
+    httpLogging: process.env.HTTP_LOGGING ? process.env.HTTP_LOGGING : 'combined'
   }
 
 }();
