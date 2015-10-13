@@ -1,3 +1,6 @@
 node_modules/
 .idea/
 rssbe-es6.iml
+kb8/
+release.sh
+deploy.sh

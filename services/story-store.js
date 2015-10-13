@@ -1,22 +1,26 @@
 module.exports = (db) => {
 
-  const COLLECTION = "test";
+  const COLLECTION_NAME = "test";
+
+  var collection = db.collection(COLLECTION_NAME);
 
   return {
 
+    collection: collection,
+
     all: function (callback) {
-      db.collection(COLLECTION).find({}).toArray((err, docs) => {
+      collection.find({}).toArray((err, docs) => {
         callback(docs);
       });
     },
 
     insert: function (data, callback) {
-      db.collection(COLLECTION).findOne({_id: data._id}, (err, result) => {
+      collection.findOne({_id: data._id}, (err, result) => {
         if (result) {
           callback(null, false);
         } else {
           console.log(data.title);
-          db.collection(COLLECTION).insert(data, (err, result) => {
+          collection.insert(data, (err, result) => {
             if (err) callback(err, null);
             else callback(null, true);
           });
@@ -25,7 +29,7 @@ module.exports = (db) => {
     },
 
     latest: function (callback) {
-      db.collection(COLLECTION)
+      collection
         .find({})
         .sort({datePublished: -1})
         .limit(50)

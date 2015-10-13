@@ -7,6 +7,7 @@ var debug = require('debug')('app');
 var configuration = require('./configuration.js');
 var storyRoutes = require('./routes/stories');
 var errorRoutes = require('./routes/error');
+var migrations = require('./services/migrations');
 
 debug(configuration);
 
@@ -18,8 +19,12 @@ app.use(logger(configuration.httpLogging));
 app.use('/stories', storyRoutes);
 app.use(errorRoutes);
 
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-  debug('Example app listening at http://%s:%s', host, port);
+migrations(configuration.mongoUri, () => {
+  var server = app.listen(3000, function () {
+    var host = server.address().address;
+    var port = server.address().port;
+    debug('Example app listening at http://%s:%s', host, port);
+  });
 });
+
+
