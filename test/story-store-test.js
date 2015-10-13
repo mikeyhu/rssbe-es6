@@ -69,6 +69,36 @@ describe('The Story Store Service', function () {
     });
   });
 
+  it('should add a state to a story', function (done) {
+    //given
+    var story = {
+      _id: "123",
+      title: "this is a title"
+    };
+
+    collection.insert = function (data, callback) {
+      var result = data;
+      result._id = "123";
+      assert.equal(result.state, "new");
+      callback(null, {ops: [result]});
+    };
+
+    collection.findOne = function (data, callback) {
+      callback(null, null);
+    };
+
+
+    //when
+    storyStore(mock).insert(story, function (err, result) {
+
+      //then
+      assert.isNull(err);
+      assert.isNotNull(result);
+      assert.ok(result);
+      done();
+    });
+  });
+
   describe('latest method', function () {
     it('should return a limit of 50 items', function (done) {
       //given

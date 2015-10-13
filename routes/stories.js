@@ -21,4 +21,8 @@ router.get('/latest', function (req, res) {
   storyStore(req.db).latest((data) => res.json(data));
 });
 
+router.get('/new', function (req, res) {
+  storyStore(req.db).latestNew((data) => res.json(data));
+});
+
 module.exports = router;

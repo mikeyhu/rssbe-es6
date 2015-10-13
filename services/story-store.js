@@ -4,6 +4,11 @@ module.exports = (db) => {
 
   var collection = db.collection(COLLECTION_NAME);
 
+  var transform = function (story) {
+    story.state = "new";
+    return story;
+  };
+
   return {
 
     collection: collection,
@@ -20,7 +25,7 @@ module.exports = (db) => {
           callback(null, false);
         } else {
           console.log(data.title);
-          collection.insert(data, (err, result) => {
+          collection.insert(transform(data), (err, result) => {
             if (err) callback(err, null);
             else callback(null, true);
           });
@@ -31,6 +36,16 @@ module.exports = (db) => {
     latest: function (callback) {
       collection
         .find({})
+        .sort({datePublished: -1})
+        .limit(50)
+        .toArray((err, docs) => {
+          callback(docs);
+        });
+    },
+
+    latestNew: function (callback) {
+      collection
+        .find({state:"new"})
         .sort({datePublished: -1})
         .limit(50)
         .toArray((err, docs) => {
